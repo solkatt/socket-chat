@@ -1,0 +1,24 @@
+{
+	"name": "socket-chat",
+	"version": "1.0.0",
+	"description": "I den här inlämningen skall ni skapa en chatt-baserad app som låter användare chatta med varandra i realtid. Kommunikationen skall sättas upp och göras med socket.io. Varje klient skall kunna skapa ett nytt rum alternativt gå in i ett befintligt rum. När ett nytt rum skapas kan ett lösenord anges, detta lösenord måste isåfall anges då en klient försöker gå med i rummet. Samtliga rum skall visas i en lista med sortering på låsta- och öppna rum (låsta rum har lösenord). En klient skall kunna gå in i ett rum genom att klicka på det i listan och är detta ett låst rum måste hen ange rätt lösenord för att komma in. Ett rum skall automatiskt försvinna då det inte längre finns några klienter kvar i rummet.",
+	"main": "index.js",
+	"scripts": {
+		"start": "node-dev ./server.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/solkatt/socket-chat.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/solkatt/socket-chat/issues"
+	},
+	"homepage": "https://github.com/solkatt/socket-chat#readme",
+	"dependencies": {
+		"express": "^4.17.1",
+		"socket.io": "^2.3.0"
+	}
+}
