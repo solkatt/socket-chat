@@ -6,10 +6,17 @@
 		<title>Document</title>
 
 		<script src="/socket.io/socket.io.js"></script>
-		<link rel="stylesheet" href="./style.css" />
+		<link rel="stylesheet" href="./css/style.css" />
 		<script defer src="./script.js"></script>
 	</head>
 	<body>
+		<div id="appContainer">
+			<div id="dashboard">
+
+				<h3>Rooms</h3>
+				<div id="rooms">
+					</div>
+			</div>
 		<form class="join ui">
 			<input type="text" placeholder="Enter your nic" />
 			<input type="text" placeholder="Enter a room" />
@@ -24,6 +31,7 @@
 				<input type="text" placeholder="Type a message" />
 				<button>Send</button>
 			</form>
+		</div>
 		</div>
 	</body>
 </html>
