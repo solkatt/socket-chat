@@ -8,15 +8,27 @@ const port = 3000
 const server = http.createServer(app)
 const io = socketIO(server)
 
-app.use(express.static('./public'))
+//Set static folder
+app.use(express.static('public'))
 
 io.on('connection', (socket) => {
+
+
+	////////
+	
+
+	// Runs when client disconnects
+	
+
+
+
+	//////
 	console.log('Client connected: ', socket.id)
 
 	socket.on('join room', (data) => {
 		socket.join(data.room, () => {
 			// Respond to client that join was successful
-			io.to(socket.id).emit('join successful', 'success')
+			io.to(socket.id).emit('join successful', data.room)
 
 			//Broadcast message to all clients in the room *Viktor has joined the room*
 			io.to(data.room).emit('message', {

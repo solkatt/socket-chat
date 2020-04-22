@@ -30,20 +30,32 @@ function onJoinRoom(event) {
 
 function onSendMessage(event) {
 	event.preventDefault()
+
+	//Get Message text
 	const input = document.querySelector('.chat.ui form input')
+	
+	// Emit Message to server
 	socket.emit('message', input.value)
 	input.value = ''
 }
 
 function loadChatUI(data) {
-	console.log(data)
 	document.querySelector('.join.ui').classList.add('hidden')
 	document.querySelector('.chat.ui').classList.remove('hidden')
+
+	////
+	const rooms = document.querySelector('#rooms')
+	const room = document.createElement('div')
+	room.classList.add('room')
+	room.innerHTML = `<h4>${data}</h4>`
+	rooms.appendChild(room)
+
 }
 
 function onMessageReceived({ name, message }) {
 	const ul = document.querySelector('ul')
 	const li = document.createElement('li')
+	li.classList.add('message')
 	li.innerText = `${name}: ${message}`
 	ul.append(li)
 }
