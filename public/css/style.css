@@ -1,4 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
+
+
 * {
+    margin: 0;
+    padding: 0;
+    /* font-family: Arial, Helvetica, sans-serif; */
+    font-family: 'Cabin', sans-serif;
+}
+
+.hidden {
+    display: none !important;
+}
+
+body {
+    background: rgb(223, 114, 196);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* ------ STARTPAGE ------ */
+
+.startPageContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+h1 {
+    margin-bottom: 3rem;
+}
+
+.chooseUsername {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 0.8rem;
+    border-style: none;
+}
+
+.roomsContainerStartPage {
+    background: rgb(171, 255, 255);
+    color: black;
+    width: 20rem;
+    height: auto;
+    padding: 0.4rem;
+    border-radius: 0.5rem;
+}
+
+.createRoomContainer {
+    margin-top: 0.8rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.createRoomButton {
+    margin-top: 0.3rem;
+    border: none;
+    padding: 0.5rem;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.5rem;
+    cursor: pointer
+}
+
+/* ------ CHATPAGE ------ */
+
+.chatContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    grid-template-areas:
+    "roomsContainer username username leaveRoom"
+    "roomsContainer chat chat chat"
+    "roomsContainer chat chat chat"
+    "roomsContainer chat chat chat"
+    "roomsContainer chat chat chat"
+    "roomsContainer chat chat chat"
+    "roomsContainer chat chat chat"
+    "roomsContainer typeMessage typeMessage sendMessage";
+
+    justify-content: center;
+    align-items: center;
+    width: 75rem;
+    height: 35rem;
+    background: grey;
+    border-radius: 1rem;
+    box-shadow: 0rem 0rem 1rem black;
+    padding: 0.3rem;
+}
+
+/* Rooms */
+
+.roomsContainerChatPage {
+    grid-area: roomsContainer;
+    border-right: 0.2rem solid black;
+    height: 100%;
+    width: auto;
+    font-size: 1.2rem;
+    background:  #28c7ea;
+}
+
+.roomObject {
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 0px;
+    width: auto;
+    justify-content: space-between;
+    border-radius:  3rem;
+    align-items: center;
+    color: black;
+    background: white;
+    margin: 0.5rem  0.3rem 0.5rem 0.5rem;
+}
+
+.roomTitle {
+  margin: 0.1rem 1rem;
+}
+
+.lockIcon {
+  position: relative;
+  right: 0;
+  margin: 1rem 1rem 1rem 2rem;
+}
+
+#userList {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 1rem;
+    margin: 0 0.5rem 0.5rem 4rem;
+}
+
+.userObject {
+    display: flex;
+    width: auto;
+    color: black;
+    border-radius: 3rem;
+    align-items: center;
+    margin: 0.1rem .3rem;
+    background: white;
+}
+
+.userTitle {
+  margin: 0.2rem .2rem;
+
+}
+
+.userIcon {
+  margin: 0 0.5rem;
+}
+
+.username {
+    grid-area: username;
+    height: 100%;
+    width: 100%;
+    padding: 0.3rem;
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    border-bottom: 0.2rem solid black;
+}
+
+.leaveRoomButton {
+    grid-area: leaveRoom;
+    height: 100%;
+    width: 100%;
+    background: none;
+    border-style: none;
+    border-left: 0.2rem solid black;
+    border-bottom: 0.2rem solid black;
+    padding: 0.3rem;
+    font-size: 2rem;
+}
+
+.leaveRoomButton:hover {
+    background: rgb(61, 61, 61);
+    cursor: pointer;
+}
+
+.chat {
+    grid-area: chat;
+    background: white;
+    color: black;
+    height: 100%;
+    width: 100%;
+}
+
+.typeMessage {
+    grid-area: typeMessage;
+    background: yellow;
+    height: 100%;
+    width: 100%;
+    font-size: 2rem;
+}
+
+.sendMessage {
+    grid-area: sendMessage;
+    height: 100%;
+    width: 100%;
+    background: red;
+    border-style: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+
+
+/* * {
     margin: 0;
     padding: 0;
 }
@@ -29,15 +244,13 @@ body {
 
     width: 100vw;
     height: 100vh;
-
-
 }
+
 form {
     margin: 2rem;
     grid-area: msg;
     display: flex;
     flex-direction: column;
-
 }
 
 input {
@@ -68,17 +281,12 @@ button {
     height: 100%;
     width: 100%;
     flex-direction: column;
-
 }
 
 .chat.ui ul {
     flex: 1;
     flex-direction: column;
     list-style: none;
-    
-  
-
-
 }
 
 .message {
@@ -106,6 +314,21 @@ button {
 .room {
     padding: 1rem;
     margin: 1rem;
- background: rgba(0, 0, 0, 0.266);
-
+    background: rgba(0, 0, 0, 0.266);
 }
+
+#chatWindow {
+    height: 80%;
+    overflow-y: hidden;
+}
+
+#messageInput {
+    display: flex;
+    flex-direction: column;
+    bottom: 0;
+}
+
+.sendLeave {
+    display: flex;
+    width: 100%;
+} */
