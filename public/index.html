@@ -1,22 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
 
-		<script src="/socket.io/socket.io.js"></script>
-		<link rel="stylesheet" href="./css/style.css" />
-		<script defer src="./script.js"></script>
-	</head>
-	<body>
-		<div id="appContainer">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<link rel="stylesheet" href="./css/style.css" />
+	<script defer src="./script.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+
+</head>
+
+<body>
+
+	<!-- Startpage container!-->
+	<div class="startPageContainer">
+
+		<h1>Welcome to Socket-Chat!</h1>
+
+		<form class="join ui">
+
+			<input type="text" class="chooseUsername" placeholder="Choose username">
+
+			<div>
+				<p><b>Choose a room</b></p>
+				<div class="roomsContainerStartPage">
+					<p>Room 1</p>
+					<p>Room 2</p>
+					<p>Room 3</p>
+					<p>Room 4</p>
+					<p>Room 5</p>
+					<p>Room 6</p>
+					<p>Room 7</p>
+				</div>
+			</div>
+
+			<div class="createRoomContainer">
+				<p><b>Or create a new room!</b></p>
+				<button class="createRoomButton">Create room</button>
+			</div>
+		</form>
+	</div>
+
+	<!-- Chat container! -->
+	<div class="chatContainer hidden">
+		<div class="roomsContainerChatPage">
+			<div class="roomObject">
+				<h4 class="roomTitle">Chatserver 1</h4>
+				<i class="fas fa-lock lockIcon"></i>
+			</div>
+			<div class="roomObject">
+				<h4 class="roomTitle">Chatserver 2</h4>
+				<i class="fas fa-lock-open lockIcon"></i>
+			</div>
+			<div id="userList">
+				<div class="userObject">
+					<i class="fas fa-user userIcon"></i>
+					<h4 class="userTitle">Squrt</h4>
+				</div>
+				<div class="userObject">
+					<i class="fas fa-user userIcon"></i>
+					<h4 class="userTitle">dr4G0n5L4Y3R</h4>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="username">Nickname: Anton</div>
+
+		<a href="index.html" class="leaveRoomButton">Leave Room</a>
+		<!-- <button class="leaveRoomButton">Leave room</button> -->
+
+		<div class="chat">
+			<span>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+				Natus, placeat pariatur. Modi voluptas minus atque, aliquid,
+				dicta repellendus corporis molestias quasi commodi, vero soluta
+				qui similique dolor id illum numquam?</span>
+
+		
+		</div>
+		
+			<input type="text" class="typeMessage" placeholder="Type your message">
+			<button class="sendMessage">Send</button>
+	
+	</div>
+
+
+
+
+	<!-- <div id="appContainer">
 			<div id="dashboard">
 
 				<h3>Rooms</h3>
 				<div id="rooms">
 					</div>
+
+					<div id="users">
+						<h4>Users:</h4>
+						
+					</div>
 			</div>
+			
 		<form class="join ui">
 			<input type="text" placeholder="Enter your nic" />
 			<input type="text" placeholder="Enter a room" />
@@ -24,14 +110,23 @@
 		</form>
 
 		<div class="chat ui hidden">
-			<ul>
-				<!-- Messages are put here -->
-			</ul>
-			<form>
-				<input type="text" placeholder="Type a message" />
-				<button>Send</button>
-			</form>
+
+			<ul id="chatWindow"> -->
+	<!-- Messages are put here -->
+	<!-- </ul>
+
+			<div id="messageInput">
+				<form>
+					<input type="text" placeholder="Type a message" />
+					 <div class="sendLeave">
+						<button>Send</button>
+						<a href="index.html" class="btn">Leave Room</a>
+					 </div>
+				</form>
+			</div>
+
 		</div>
-		</div>
-	</body>
+		</div> -->
+</body>
+
 </html>
