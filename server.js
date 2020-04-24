@@ -1,87 +1,99 @@
-const express = require('express')
-const http = require('http')
-const socketIO = require('socket.io')
+const express = require("express");
+const http = require("http");
+const socketIO = require("socket.io");
 
-const app = express()
-const port = 3000
+const app = express();
+const port = 3000;
 
-const server = http.createServer(app)
-const io = socketIO(server)
+const server = http.createServer(app);
+const io = socketIO(server);
 
 //Set static folder
-app.use(express.static('public'))
+app.use(express.static("public"));
 
 /// Modules
 const {
-	userJoin,
-	getCurrentUser,
-	userLeave,
-	getRoomUsers
-} = require('./utils/users')
-
-io.on('connection', (socket) => {
-
+  userJoin,
+  getCurrentUser,
+  userLeave,
+  getRoomUsers,
+  addRoom,
+} = require("./utils/users");
 
 
-	console.log('Client connected: ', socket.id)
+/// New Stuff /////
 
-	socket.on('join room', (data) => {
-		const user = userJoin(socket.id, data.name, data.room)
+/// End of New Stuff ////
 
-		socket.join(user.room, () => {
+io.on("connection", (socket) => {
+  console.log("Client connected: ", socket.id);
 
-			// Respond to client that join was successful
-			io.to(socket.id).emit('join successful', user.room)
+  //// CREATE ROOM //////
+  socket.on("create room", (data) => {
+    // const room = addRoom(data.name, data.password);
+    const room = addRoom(data.room, data.password)
+   
+	console.log(room)
+    console.log("hej från create room > join");
+    //  console.log(room.room)
 
-			//Broadcast message to all clients in the room *Viktor has joined the room*
-			io.to(user.room).emit('message', {
-				name: user.username,
-				message: 'has joined the room! ',
-			})
-		})
+    //Joina Rum
 
-		socket.on('message', (message) => {
-			//Broadcast message to all clients in the room
-			io.to(user.room).emit('message', {
-				name: user.username,
-				message
-			})
-		})
+    // socket.join(room, () => {});
+  });
 
+  ///////////////////////
 
-		//Send users and room info
-		io.to(user.room).emit('roomUsers', {
-			room: user.room,
-			users: getRoomUsers(user.room)
-		})
+  socket.on("join room", (data) => {
+    const user = userJoin(socket.id, data.name, data.room);
 
+    socket.join(user.room, () => {
+      // Respond to client that join was successful
+      io.to(socket.id).emit("join successful", user.room);
 
+      //Broadcast message to all clients in the room *Viktor has joined the room*
+      io.to(user.room).emit("message", {
+        name: user.username,
+        message: "has joined the room! ",
+      });
+    });
 
-		//Runs when client disconnects
-		socket.on('disconnect', () => {
+    //
 
-			const user = userLeave(socket.id)
-			if(user) {
-				io.to(user.room).emit('message', {
-					name: user.username,
-					message: 'has left the chat'
-				})
-				
-				//Send user and room info
-				io.to(user.room).emit('roomUsers', {
-					room: user.room,
-					users: getRoomUsers(user.room)
-				})
+    //
+    socket.on("message", (message) => {
+      //Broadcast message to all clients in the room
+      io.to(user.room).emit("message", {
+        name: user.username,
+        message,
+      });
+    });
 
+    //Send users and room info
+    io.to(user.room).emit("roomUsers", {
+      room: user.room,
+      users: getRoomUsers(user.room),
+    });
 
-			}
-		})
+    //Runs when client disconnects
+    socket.on("disconnect", () => {
+      const user = userLeave(socket.id);
+      if (user) {
+        io.to(user.room).emit("message", {
+          name: user.username,
+          message: "has left the chat",
+        });
 
-
-
-	})
-})
+        //Send user and room info
+        io.to(user.room).emit("roomUsers", {
+          room: user.room,
+          users: getRoomUsers(user.room),
+        });
+      }
+    });
+  });
+});
 
 server.listen(port, () => {
-	console.log(`Server is running on port: http://localhost:${port}`)
-})
+  console.log(`Server is running on port: http://localhost:${port}`);
+});

@@ -38,7 +38,7 @@ h1 {
 
 .chooseUsername {
     font-size: 1.5rem;
-    padding: 0.5rem;
+    padding: 0.3rem;
     border-radius: 0.5rem;
     margin-bottom: 0.8rem;
     border-style: none;
@@ -53,21 +53,43 @@ h1 {
     border-radius: 0.5rem;
 }
 
-.createRoomContainer {
+.roomDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border-bottom: 0.1rem solid rgb(145, 145, 145); */
+    /* border-top: 0.1rem solid rgb(145, 145, 145); */
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+    background: rgb(125, 251, 255);
+    padding: 0.2rem;
+}
+
+.roomDiv button {
+    padding: 0.2rem;
+    cursor: pointer;
+}
+
+.createRoomTextButton {
     margin-top: 0.8rem;
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
 
-.createRoomButton {
-    margin-top: 0.3rem;
+.goToCreateRoomPageButton {
     border: none;
     padding: 0.5rem;
     text-align: center;
     text-decoration: none;
     font-size: 1.5rem;
     cursor: pointer
+}
+
+.join {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 /* ------ CHATPAGE ------ */
@@ -157,6 +179,8 @@ h1 {
     margin: 0 0.5rem;
 }
 
+/* Username */
+
 .username {
     grid-area: username;
     height: 100%;
@@ -167,6 +191,8 @@ h1 {
     font-size: 2rem;
     border-bottom: 0.2rem solid black;
 }
+
+/* Leave room */
 
 .leaveRoomButton {
     grid-area: leaveRoom;
@@ -184,6 +210,8 @@ h1 {
     background: rgb(61, 61, 61);
     cursor: pointer;
 }
+
+/* Chat */
 
 .chat {
     grid-area: chat;
@@ -216,6 +244,41 @@ h1 {
     font-size: 1.2rem;
 }
 
+/* ------ CREATE A NEW ROOM PAGE ------ */
+
+.createRoomContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.chooseRoomName {
+    margin-top: 2rem;
+    margin-bottom: 1.4rem;
+    font-size: 1.4rem;
+    padding: 0.3rem;
+    border-radius: 0.5rem;
+    border-style: none;
+}
+
+.inputPassword {
+    margin-top: 1rem;
+    font-size: 1.4rem;
+    padding: 0.3rem;
+    border-radius: 0.5rem;
+    border-style: none;
+}
+
+.createRoomButton {
+    margin-top: 1rem;
+    font-size: 1.4rem;
+    padding: 0.5rem;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    cursor: pointer
+}
 
 
 /* * {

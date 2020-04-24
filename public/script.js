@@ -1,101 +1,141 @@
 // Kanske kan flyttas någonstans bättre
 // const roomName = document.querySelector('#rooms')
-const userList = document.querySelector('#userList')
+const userList = document.querySelector("#userList");
 
 //
-const socket = io()
+const socket = io();
 
-window.addEventListener('load', () => {
-	setupEventListeners()
-})
+window.addEventListener("load", () => {
+  setupEventListeners();
+});
 
 function setupEventListeners() {
-	// Join submit handler
-	const joinForm = document.querySelector('form.join.ui')
-	joinForm.addEventListener('submit', onJoinRoom)
+  // Join submit handler
+  // const joinForm = document.querySelector('form.join.ui')
+  // joinForm.addEventListener('submit', onJoinRoom)
 
-	// Send message submit handler
-	const messageForm = document.querySelector('.messageBox form')
-	messageForm.addEventListener('submit', onSendMessage)
+  //GO to create Rooom
+  const goToCreateRoomPageButton = document.querySelector(
+    ".goToCreateRoomPageButton"
+  );
+  goToCreateRoomPageButton.addEventListener("click", loadCreateRoomUI);
 
-	// Socket io events
-	socket.on('join successful', loadChatUI)
-	socket.on('message', onMessageReceived)
-	socket.on('roomUsers', ({ room, users }) => {
-		outputRoomName(room)
-		outputUsers(users)
-	})
+  //Create Room Handler
+  const createRoomBtn = document.querySelector(".createRoomButton");
+  createRoomBtn.addEventListener("click", onCreateRoom);
+
+  // Send message submit handler
+  const messageForm = document.querySelector(".messageBox form");
+  messageForm.addEventListener("submit", onSendMessage);
+
+  // Socket io events
+  socket.on("join successful", loadChatUI);
+  socket.on("message", onMessageReceived);
+  socket.on("roomUsers", ({ room, users }) => {
+    outputRoomName(room);
+    outputUsers(users);
+  });
 }
 
 function onJoinRoom(event) {
-	event.preventDefault()
-	const [nameInput, roomInput] = document.querySelectorAll('.join.ui input')
+  event.preventDefault();
+  const [nameInput, roomInput] = document.querySelectorAll(".join.ui input");
 
-	const name = nameInput.value
-	const room = roomInput.value
-
-	socket.emit('join room', { name, room })
+  const name = nameInput.value;
+  // const room = roomInput.value
+  // socket.emit('join room', { name, room })
+  socket.emit("join room", name);
+  setTimeout(() => {
+    socket.emit("test", "hejsan");
+  }, 1000);
 }
 
 function loadChatUI(data) {
-	document.querySelector('.startPageContainer').classList.add('hidden')
-	document.querySelector('.chatContainer').classList.remove('hidden')
-
-	////
-	const rooms = document.querySelector('#rooms')
-	const room = document.createElement('div')
-	room.classList.add('roomObject')
-	room.innerHTML = `
+  const rooms = document.querySelector("#rooms");
+  const room = document.createElement("div");
+  room.classList.add("roomObject");
+  room.innerHTML = `
 	<h4 class="roomTitle">${data}</h4>
 	<i class="fas fa-lock lockIcon"></i>
-	`
-	rooms.appendChild(room)
+	`;
+  rooms.appendChild(room);
+}
+
+function onCreateRoom(event) {
+  event.preventDefault();
+  document.querySelector(".createRoomContainer").classList.add("hidden");
+  document.querySelector(".chatContainer").classList.remove("hidden");
+
+  console.log("TJEENA från onCreateRoom");
+
+  const roomInput = document.querySelector(".chooseRoomName");
+  const room = roomInput.value;
+
+  const passwordInput = document.querySelector(".inputPassword");
+  const password = passwordInput.value;
+
+  console.log(`Rum: ${room}  Password: ${password}`);
+  
+
+ 
+  socket.emit("create room", {room, password});
+}
+
+function loadCreateRoomUI(event) {
+  event.preventDefault();
+
+  const userNameInput = document.querySelector(".chooseUsername")
+
+  if (userNameInput.value == "") {
+	alert("Enter username!")
+  } else {
+	document.querySelector(".startPageContainer").classList.add("hidden");
+	document.querySelector(".createRoomContainer").classList.remove("hidden");
+  }
 }
 
 function onSendMessage(event) {
-	event.preventDefault()
+  event.preventDefault();
 
-	//Get Message text
-	const input = document.querySelector('.messageBox form input')
+  //Get Message text
+  const input = document.querySelector(".messageBox form input");
 
-	// Emit Message to server
-	socket.emit('message', input.value)
-	input.value = ''
+  // Emit Message to server
+  socket.emit("message", input.value);
+  input.value = "";
 }
 
 function onMessageReceived({ name, message }) {
-	const ul = document.querySelector('ul')
-	const li = document.createElement('li')
-	li.classList.add('message')
-	li.innerText = `${name}: ${message}`
-	ul.append(li)
+  const ul = document.querySelector("ul");
+  const li = document.createElement("li");
+  li.classList.add("message");
+  li.innerText = `${name}: ${message}`;
+  ul.append(li);
 
-	ul.scrollTop = ul.scrollHeight
+  ul.scrollTop = ul.scrollHeight;
 }
 
 // Add room name to DOM
 function outputRoomName(room) {
-	// roomName.innerText = room;
-	console.log(room)
+  // roomName.innerText = room;
+  console.log(room);
 }
 
 //Add users to DOM
 function outputUsers(users) {
-	console.log(users)
-	const user = document.createElement('div')
+  console.log(users);
+  const user = document.createElement("div");
 
-	user.innerHTML = `
+  user.innerHTML = `
 	${users
-		.map(
-			(user) => `
+    .map(
+      (user) => `
 			<div class="userObject">
-	<i class="fas fa-user userIcon"></i>
-	<h4 class="userTitle">	${user.username}
-</h4> </div>
-	`
-		)
-		.join('')}
-	`
+			<i class="fas fa-user userIcon"></i>
+			<h4 class="userTitle">	${user.username}
+			</h4> </div>`
+    )
+    .join("")}`;
 
-	userList.append(user)
+  userList.append(user);
 }
