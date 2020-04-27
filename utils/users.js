@@ -15,6 +15,24 @@ function userJoin(id, username, room) {
 }
 
 // Get current user
+function updateUserRoom(id, room) {
+  // const index = users.findIndex((user) => user.id === id);
+  // console.log(index)
+  //  users[index].room = room
+  
+
+   // test 
+   for (let i in users){
+     if(users[i].id == id) {
+       users[i].room = room
+     }
+   }
+  // users.push(user)
+  console.log(users)
+}
+
+
+// Get current user
 function getCurrentUser(id) {
   return users.find((user) => user.id === id);
 }
@@ -27,25 +45,33 @@ function userLeave(id) {
   }
 }
 
+// Funkar
 function getRoomUsers(room) {
   return users.filter((user) => user.room === room);
 }
 
-////////// ROOM DATA //////////////
 
+////////// ROOM DATA //////////////
 
 const rooms = [];
 
 // Join user to chat
 function addRoom(name, password) {
+
   const room = {
     name,
     password,
   };
+  // room.clients.push(user)
   rooms.push(room);
   return room;
 }
 
+// function getRoomUsers(room) {
+
+  
+//   return rooms.filter((user) => user.room === room);
+// }
 
 module.exports = {
   userJoin,
@@ -53,4 +79,5 @@ module.exports = {
   userLeave,
   getRoomUsers,
   addRoom,
+  updateUserRoom
 };

@@ -2,8 +2,7 @@
 // const roomName = document.querySelector('#rooms')
 const userList = document.querySelector("#userList");
 
-const roomList = document.querySelector('.roomsContainerStartPage')
-
+//
 const socket = io();
 
 window.addEventListener("load", () => {
@@ -11,6 +10,10 @@ window.addEventListener("load", () => {
 });
 
 function setupEventListeners() {
+  // Join submit handler
+  // const joinForm = document.querySelector('form.join.ui')
+  // joinForm.addEventListener('submit', onJoinRoom)
+
   //GO to create Rooom
   const goToCreateRoomPageButton = document.querySelector(
     ".goToCreateRoomPageButton"
@@ -25,100 +28,34 @@ function setupEventListeners() {
   const messageForm = document.querySelector(".messageBox form");
   messageForm.addEventListener("submit", onSendMessage);
 
-  // Output Room List
-
- 
   // Socket io events
-  socket.on('room created', loadJoin)
-  ///
   socket.on("join successful", loadChatUI);
   socket.on("message", onMessageReceived);
-  socket.on("roomUsers", ({
-    room,
-    users
-  }) => {
-    outputRooms(room);
+  socket.on("roomUsers", ({ room, users }) => {
+    outputRoomName(room);
     outputUsers(users);
   });
 }
 
-function loadCreateRoomUI(event) {
-  event.preventDefault();
-
-  const userNameInput = document.querySelector(".chooseUsername")
-
-  // Save User to Users Array
-  const name = userNameInput.value
-  const room = ''
-
-  socket.emit('join app', {
-    name,
-    room
-  })
-
-  if (userNameInput.value == "") {
-    alert("Enter username!")
-  } else {
-    document.querySelector(".startPageContainer").classList.add("hidden");
-    document.querySelector(".createRoomContainer").classList.remove("hidden");
-  }
-}
-
-/// ON CREATE ROOM ////////
-
-function onCreateRoom(event) {
-  event.preventDefault();
-
-  console.log("Hej från onCreateRoom");
-
-  const roomInput = document.querySelector(".chooseRoomName");
-  const room = roomInput.value;
-
-  const passwordInput = document.querySelector(".inputPassword");
-  const password = passwordInput.value;
-
-  /// Validate
-  if (room == "") {
-    alert("Enter roomname!")
-  } else {
-    document.querySelector(".createRoomContainer").classList.add("hidden");
-    document.querySelector(".chatContainer").classList.remove("hidden");
-
-    socket.emit("create room", {
-      room,
-      password
-    });
-  }
-
-  console.log(`Rumnamn: ${room}  Lösenord: ${password}`);
-
-}
-
-
-/// 
-
-function loadJoin(name, room) {
-
-onJoinRoom(name, room)
-}
-
-
 //// ON JOIN ROOM
 
-function onJoinRoom(name, room) {
-  event.preventDefault();
-  // const [nameInput, roomInput] = document.querySelectorAll(".join.ui input");
 
-  // const name = nameInput.value;
+function onJoinRoom(event) {
+  event.preventDefault();
+  const [nameInput, roomInput] = document.querySelectorAll(".join.ui input");
+
+  const name = nameInput.value;
   // const room = roomInput.value
-   socket.emit('join room', { name, room })
-  // socket.emit("join room", name);
+  // socket.emit('join room', { name, room })
+  socket.emit("join room", name);
 
 }
 
+
+//////// 
+
 function loadChatUI(data) {
-  console.log(`Från script > loadChatUI: ${data}`)
-  // socket.emit("join room", name);
+console.log(`Från script > loadChatUI: ${data}`)
 
   const rooms = document.querySelector("#rooms");
   const room = document.createElement("div");
@@ -129,6 +66,59 @@ function loadChatUI(data) {
 	`;
   rooms.appendChild(room);
 }
+
+////// 
+
+function loadCreateRoomUI(event) {
+  event.preventDefault();
+
+  const userNameInput = document.querySelector(".chooseUsername")
+
+  const name = userNameInput.value
+  const room = ''
+  // Save User to Users Array
+
+   socket.emit('join app', {name, room})
+
+  if (userNameInput.value == "") {
+	alert("Enter username!")
+  } else {
+	document.querySelector(".startPageContainer").classList.add("hidden");
+	document.querySelector(".createRoomContainer").classList.remove("hidden");
+  }
+}
+
+/// ON CREATE ROOM ////////
+
+function onCreateRoom(event) {
+  event.preventDefault();
+  
+  console.log("TJEENA från onCreateRoom");
+
+  const roomInput = document.querySelector(".chooseRoomName");
+  const room = roomInput.value;
+
+  /// Validate
+  if (room == "") {
+    alert("Enter roomname!")
+    } else {
+      document.querySelector(".createRoomContainer").classList.add("hidden");
+      document.querySelector(".chatContainer").classList.remove("hidden");
+    }
+
+  const passwordInput = document.querySelector(".inputPassword");
+  const password = passwordInput.value;
+
+  console.log(`Rum: ${room}  Password: ${password}`);
+
+
+  socket.emit("create room", {room, password});
+}
+
+
+
+///////
+
 
 function onSendMessage(event) {
   event.preventDefault();
@@ -141,10 +131,7 @@ function onSendMessage(event) {
   input.value = "";
 }
 
-function onMessageReceived({
-  name,
-  message
-}) {
+function onMessageReceived({ name, message }) {
   const ul = document.querySelector("ul");
   const li = document.createElement("li");
   li.classList.add("message");
@@ -155,7 +142,7 @@ function onMessageReceived({
 }
 
 // Add room name to DOM
-function outputRooms(room) {
+function outputRoomName(room) {
   // roomName.innerText = room;
   console.log(room);
 }

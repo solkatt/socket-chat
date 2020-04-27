@@ -18,7 +18,6 @@ const {
   userLeave,
   getRoomUsers,
   addRoom,
-  updateUserRoom
 } = require("./utils/users");
 
 
@@ -30,57 +29,50 @@ io.on("connection", (socket) => {
   console.log("Client connected: ", socket.id);
 
 
-  // USER JOIN CHATAPP
-  socket.on('join app', (data) => {
-    const user = userJoin(socket.id, data.name, data.room);
-    console.log(`Användarnamn: ${data.name}`)
+// USER JOIN CHATAPP
+socket.on('join app', (data) => {
+  const user = userJoin(socket.id, data.name, data.room);
+   console.log(`Namn: ${data.name}`)
 
-  })
+})
 
-  // CREATE ROOM
+
+
+
+  //// CREATE ROOM //////
   socket.on("create room", (data) => {
-
-    const user = getCurrentUser(socket.id)
-    console.log("TEST:", user)
-
     // const room = addRoom(data.name, data.password);
     const room = addRoom(data.room, data.password)
-    updateUserRoom(socket.id, data.room)
-    //pusha room till user.room
+   
+	console.log(room)
+    console.log("hej från create room > join");
 
-    // socket.join(user.room, (data) => {
-    //   io.to(socket.id).emit('join successful', user.room)
-    // })
-
-    io.to(socket.id).emit("room created",user.username, user.room);
+    socket.join(room.name, (data) => {
+      io.to(socket.id).emit('join successfull', room.name)
+      console.log(`Från join: ${room.name}`)
+    })
 
   });
 
+  ///////////////////////
 
-
-
-  //////////////////////////////////////////////
-
-
-
-
-  // JOIN ROOM
   socket.on("join room", (data) => {
     const user = userJoin(socket.id, data.name, data.room);
 
-    
     socket.join(user.room, () => {
       // Respond to client that join was successful
       io.to(socket.id).emit("join successful", user.room);
 
       //Broadcast message to all clients in the room *Viktor has joined the room*
-      io.to(user.room).emit("message", { // boradcast style
+      io.to(user.room).emit("message", {
         name: user.username,
         message: "has joined the room! ",
       });
     });
 
-    // MESSAGE
+    //
+
+    //
     socket.on("message", (message) => {
       //Broadcast message to all clients in the room
       io.to(user.room).emit("message", {
@@ -89,13 +81,13 @@ io.on("connection", (socket) => {
       });
     });
 
-    //SEND USERS AND ROOM INFO
+    //Send users and room info
     io.to(user.room).emit("roomUsers", {
       room: user.room,
       users: getRoomUsers(user.room),
     });
 
-    // DISCONNECT
+    //Runs when client disconnects
     socket.on("disconnect", () => {
       const user = userLeave(socket.id);
       if (user) {
