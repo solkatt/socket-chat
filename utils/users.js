@@ -1,4 +1,4 @@
-////////// USER DATA //////////////
+// USER DATA //
 
 const users = []
 
@@ -60,7 +60,7 @@ function getRoomUsers(room) {
 	return users.filter((user) => user.room === room)
 }
 
-////////// ROOM DATA //////////////
+// ROOM DATA //
 
 const rooms = [
 	{
@@ -84,6 +84,19 @@ function getRooms() {
 	return rooms
 }
 
+function getRoomPassword(room) {
+
+	for (let i=0; i < rooms.length; i++) {
+        if (rooms[i].name === room) {
+            return rooms[i].password;
+        }
+	}
+	
+	// const index = rooms.findIndex((room) => room.name === room)
+
+	// console.log('Hej', rooms[index].password)
+}
+
 // function getRoomUsers(room) {
 
 //   return rooms.filter((user) => user.room === room);
@@ -99,4 +112,5 @@ module.exports = {
 	getRooms,
 	displayUsername,
 	getAllUsers,
+	getRoomPassword
 }

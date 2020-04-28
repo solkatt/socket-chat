@@ -51,6 +51,7 @@ function setupEventListeners() {
 	// Socket io events
 	socket.on('load room list', loadRoomList)
 	socket.on('room created', loadJoin)
+	socket.on('prompt password', promptPassword)
 	///
 	socket.on('join successful', loadChatUI)
 	socket.on('message', onMessageReceived)
@@ -110,6 +111,20 @@ function joinActiveRoom(roomName) {
 		document.querySelector('.chatContainer').classList.remove('hidden')
 	}
 }
+
+
+function promptPassword(roomPW) {
+
+	const roomPassword = roomPW
+	prompt('Angelösen:')
+	// bygg prompt modal 
+	// classList.hidden
+	console.log('frn promtPassword:', roomPassword)
+}
+
+
+
+
 
 function loadCreateRoomUI(event) {
 	event.preventDefault()

@@ -21,6 +21,7 @@ const {
 	updateUserRoom,
 	getRooms,
 	getAllUsers,
+	getRoomPassword
 } = require('./utils/users')
 
 /// New Stuff /////
@@ -45,7 +46,6 @@ io.on('connection', (socket) => {
 		console.log('TEST:', user)
 		
 		const allUsers = getAllUsers()
-		console.log('Alla Users FÖRE updateRoom', allUsers)
 
 		// const room = addRoom(data.name, data.password);
 		const room = addRoom(data.room, data.password)
@@ -69,8 +69,21 @@ io.on('connection', (socket) => {
 		const users = getAllUsers()
 		// const allUsers = getAllUsers()
 		// if user.id already exist 
-		
 		const user = userJoin(socket.id, data.name, data.room)
+
+		const roomPW = getRoomPassword(data.room)
+
+		if(roomPW.length >= 1) {
+			console.log('lösen finns')
+			io.to(socket.id).emit('prompt password', roomPW)
+
+			getPromptPassword()
+			// const givenPW
+		
+		} else {
+			console.log('lösen finns inte')
+		}
+		console.log('RoomPW: ',roomPW)
 
 	
 		
