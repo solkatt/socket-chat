@@ -102,6 +102,7 @@ io.on('connection', (socket) => {
 					room: user.room,
 					users: getRoomUsers(user.room),
 				})
+				console.log('Disconnected')
 			}
 		})
 	})

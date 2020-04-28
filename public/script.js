@@ -42,7 +42,8 @@ function setupEventListeners() {
 		e.preventDefault()
 		// check whether class "submit-button" is present in the CSS classes of target
 		if (e.target.classList.contains('joinRoomButton')) {
-			const room = e.target.previousElementSibling.innerHTML
+			const room = e.target.previousElementSibling.innerHTML.trim()
+
 			joinActiveRoom(room)
 		}
 	})
@@ -98,10 +99,10 @@ function joinActiveRoom(roomName) {
 	if (userNameInput.value == '') {
 		alert('Enter username!')
 	} else {
-		socket.emit('join app', {
-			name,
-			room,
-		})
+		// socket.emit('join app', {
+		// 	name,
+		// 	room,
+		// })
 
 		socket.emit('join room', { name, room })
 
@@ -138,8 +139,6 @@ function loadCreateRoomUI(event) {
 
 function onCreateRoom(event) {
 	event.preventDefault()
-
-	console.log('Hej från onCreateRoom')
 
 	const roomInput = document.querySelector('.chooseRoomName')
 	const room = roomInput.value
@@ -226,6 +225,8 @@ function outputRooms(room) {
 function outputUsers(users) {
 	console.log(users)
 	const user = document.createElement('div')
+
+	userList.innerHTML = ''
 
 	user.innerHTML = `
 	${users
