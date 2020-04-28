@@ -23,7 +23,7 @@ function setupEventListeners() {
 	createRoomBtn.addEventListener('click', onCreateRoom)
 
 	// Send message submit handler
-	const messageForm = document.querySelector('.messageBox form')
+	const messageForm = document.querySelector('.messageBox')
 	messageForm.addEventListener('submit', onSendMessage)
 
 	// Output Room List
@@ -198,7 +198,7 @@ function onSendMessage(event) {
 	event.preventDefault()
 
 	//Get Message text
-	const input = document.querySelector('.messageBox form input')
+	const input = document.querySelector('.messageBox input')
 
 	// Emit Message to server
 	socket.emit('message', input.value)

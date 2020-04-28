@@ -20,6 +20,7 @@ const {
 	addRoom,
 	updateUserRoom,
 	getRooms,
+	getAllUsers,
 } = require('./utils/users')
 
 /// New Stuff /////
@@ -42,10 +43,16 @@ io.on('connection', (socket) => {
 	socket.on('create room', (data) => {
 		const user = getCurrentUser(socket.id)
 		console.log('TEST:', user)
+		
+		const allUsers = getAllUsers()
+		console.log('Alla Users FÖRE updateRoom', allUsers)
 
 		// const room = addRoom(data.name, data.password);
 		const room = addRoom(data.room, data.password)
 		updateUserRoom(socket.id, data.room)
+
+
+
 		//pusha room till user.room
 
 		// socket.join(user.room, (data) => {
@@ -59,7 +66,16 @@ io.on('connection', (socket) => {
 
 	// JOIN ROOM
 	socket.on('join room', (data) => {
+		const users = getAllUsers()
+		// const allUsers = getAllUsers()
+		// if user.id already exist 
+		
 		const user = userJoin(socket.id, data.name, data.room)
+
+	
+		
+		
+		
 
 		socket.join(user.room, () => {
 			// Respond to client that join was successful

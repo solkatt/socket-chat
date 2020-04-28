@@ -106,7 +106,7 @@ h1 {
         "roomsContainer chat chat chat"
         "roomsContainer chat chat chat"
         "roomsContainer chat chat chat"
-        "roomsContainer typeMessage typeMessage sendMessage";
+        "roomsContainer messageBox messageBox messageBox";
 
     justify-content: center;
     align-items: center;
@@ -115,18 +115,16 @@ h1 {
     background: grey;
     border-radius: 1rem;
     box-shadow: 0rem 0rem 1rem black;
-    padding: 0.3rem;
 }
 
 /* Rooms */
 
 .roomsContainerChatPage {
     grid-area: roomsContainer;
-    border-right: 0.2rem solid black;
     height: 100%;
     width: auto;
     font-size: 1.2rem;
-    background: #28c7ea;
+    background: none;
 }
 
 .roomObject {
@@ -172,7 +170,6 @@ h1 {
 
 .userTitle {
     margin: 0.2rem .2rem;
-
 }
 
 .userIcon {
@@ -185,11 +182,9 @@ h1 {
     grid-area: username;
     height: 100%;
     width: 100%;
-    padding: 0.3rem;
     display: flex;
     align-items: center;
     font-size: 2rem;
-    border-bottom: 0.2rem solid black;
 }
 
 /* Leave room */
@@ -197,17 +192,21 @@ h1 {
 .leaveRoomButton {
     grid-area: leaveRoom;
     height: 100%;
-    width: 100%;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: none;
     border-style: none;
-    border-left: 0.2rem solid black;
-    border-bottom: 0.2rem solid black;
-    padding: 0.3rem;
     font-size: 2rem;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    border-left: 0.1rem solid black;
 }
 
 .leaveRoomButton:hover {
-    background: rgb(61, 61, 61);
+    color: white;
     cursor: pointer;
 }
 
@@ -215,10 +214,12 @@ h1 {
 
 .chat {
     grid-area: chat;
+    box-sizing: border-box;
     background: white;
     color: black;
     height: 100%;
-    width: 100%;
+    width: auto;
+    padding: 0.3rem;
 }
 
 #chatWindow {
@@ -226,22 +227,42 @@ h1 {
     overflow-y: hidden;
 }
 
+.messageBox {
+    grid-area: messageBox;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-template-areas:
+        "typeMessage typeMessage typeMessage sendMessage";
+
+    height: 100%;
+    width: auto;
+}
+
 .typeMessage {
     grid-area: typeMessage;
-    background: yellow;
+    background: white;
+    box-sizing: border-box;
+    border: 0.1rem solid black;
     height: 100%;
     width: 100%;
-    font-size: 2rem;
+    font-size: 1.4rem;
+    padding: 0.3rem;
+    color: black;
 }
 
 .sendMessage {
     grid-area: sendMessage;
     height: 100%;
     width: 100%;
-    background: red;
+    background: none;
     border-style: none;
-    cursor: pointer;
     font-size: 1.2rem;
+}
+
+.sendMessage:hover {
+    color: white;
+    cursor: pointer;
 }
 
 /* ------ CREATE A NEW ROOM PAGE ------ */
@@ -279,124 +300,3 @@ h1 {
     border: none;
     cursor: pointer
 }
-
-
-/* * {
-    margin: 0;
-    padding: 0;
-}
-
-body {
-
-    background: rgb(223, 114, 196);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-
-#appContainer {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(8, 1fr);
-    grid-template-areas: 
-    "dashboard chat chat chat"
-    "dashboard chat chat chat"
-    "dashboard chat chat chat"
-    "dashboard chat chat chat"
-    "dashboard chat chat chat"
-    "dashboard chat chat chat"
-    "dashboard chat chat chat"
-    "dashboard msg msg msg";
-
-    width: 100vw;
-    height: 100vh;
-}
-
-form {
-    margin: 2rem;
-    grid-area: msg;
-    display: flex;
-    flex-direction: column;
-}
-
-input {
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    border: none;
-    border-radius: 0.2rem;
-    font-size: 1.5rem;
-}
-
-button {
-    font-size: 1.2rem;
-    border-radius: 10rem;
-    border: none;
-    background: rgb(125, 217, 245);
-    color: white;
-    padding: 1rem;
-    cursor: pointer;
-}
-
-.hidden {
-    display: none !important;
-}
-
-.chat.ui {
-    grid-area: chat;
-    display: flex;
-    height: 100%;
-    width: 100%;
-    flex-direction: column;
-}
-
-.chat.ui ul {
-    flex: 1;
-    flex-direction: column;
-    list-style: none;
-}
-
-.message {
-    flex-direction: column;
-    background: rgb(255, 255, 255);
-    color: black;
-    
-    font-size: 1.2rem;
-    padding: 0.5rem;
-    border-radius: 20rem;
-    margin: 0.5rem;
-  
-}
-
-#dashboard {
-    grid-area: dashboard;
-    height: 100%;
-    background: rgb(255, 157, 77);
-
-}
-
-#rooms {
-}
-
-.room {
-    padding: 1rem;
-    margin: 1rem;
-    background: rgba(0, 0, 0, 0.266);
-}
-
-#chatWindow {
-    height: 80%;
-    overflow-y: hidden;
-}
-
-#messageInput {
-    display: flex;
-    flex-direction: column;
-    bottom: 0;
-}
-
-.sendLeave {
-    display: flex;
-    width: 100%;
-} */

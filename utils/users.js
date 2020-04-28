@@ -13,6 +13,15 @@ function userJoin(id, username, room) {
 	return user
 }
 
+function getAllUsers() {
+	return users
+}
+
+function displayUsername(user) {
+	const username = document.querySelector(".username")
+}
+
+
 // Get current user
 function updateUserRoom(id, room) {
 	// const index = users.findIndex((user) => user.id === id);
@@ -43,6 +52,8 @@ function userLeave(id) {
 		return users.splice(index, 1)[0]
 	}
 }
+
+
 
 // Funkar
 function getRoomUsers(room) {
@@ -80,10 +91,12 @@ function getRooms() {
 
 module.exports = {
 	userJoin,
-	getCurrentUser,
 	userLeave,
+	getCurrentUser,
 	getRoomUsers,
 	addRoom,
 	updateUserRoom,
 	getRooms,
+	displayUsername,
+	getAllUsers,
 }
