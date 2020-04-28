@@ -7,8 +7,8 @@ const roomList = document.querySelector('.roomsContainerStartPage')
 const socket = io()
 
 window.addEventListener('load', () => {
-	setupEventListeners()
 	reloadRoomList()
+	setupEventListeners()
 })
 
 function setupEventListeners() {
@@ -26,15 +26,26 @@ function setupEventListeners() {
 	const messageForm = document.querySelector('.messageBox form')
 	messageForm.addEventListener('submit', onSendMessage)
 
-	/// Join Room Button
-	const joinRoomButtons = document.querySelectorAll('.joinRoomButton')
-	joinRoomButtons.forEach((joinRoomButton) => {
-		joinRoomButton.addEventListener('click', () => {
-			joinActiveRoom(joinRoomButton)
-		})
-	})
-
 	// Output Room List
+	/// Join Room Button
+
+	// let joinRoomButtons = document.querySelectorAll('.joinRoomButton')
+	// joinRoomButtons.forEach((joinRoomButton) => {
+	// 	joinRoomButton.addEventListener('click', () => {
+	// 		event.preventDefault()
+	// 		console.log('tjeema')
+	// 		joinActiveRoom()
+	// 	})
+	// })
+
+	roomList.addEventListener('click', function (e) {
+		e.preventDefault()
+		// check whether class "submit-button" is present in the CSS classes of target
+		if (e.target.classList.contains('joinRoomButton')) {
+			const room = e.target.previousElementSibling.innerHTML
+			joinActiveRoom(room)
+		}
+	})
 
 	// Socket io events
 	socket.on('load room list', loadRoomList)
@@ -52,52 +63,51 @@ function loadRoomList({ rooms }) {
 	console.log('LOAD ROOMS')
 	console.log(rooms)
 
-	const roomObject = document.createElement('div')
+	let template = document.createElement('template')
+	// const roomDiv = document.createElement('')
+	//  roomDiv.classList.add('roomDiv')
 
-	roomObject.innerHTML = `
+	template.innerHTML = `
 	${rooms
 		.map(
 			(room) => `
-			<div class="roomDiv">
+      <div class="roomDiv" >
       <p>	${room.name}</p>
-      <button class="joinRoomButton">Join</button>
-       </div>`
+      <button class="joinRoomButton" >Join</button>
+      </div>
+       `
 		)
 		.join('')}`
 
-	roomList.append(roomObject)
+	roomList.append(template.content)
 }
 
 function reloadRoomList() {
 	socket.emit('reload room list')
 }
 
-function joinActiveRoom(event, joinRoomButton) {
-	event.preventDefault()
-
-	console.log('hej från join active room')
+function joinActiveRoom(roomName) {
+	console.log(roomName)
 
 	const userNameInput = document.querySelector('.chooseUsername')
 
 	// Save User to Users Array
 	const name = userNameInput.value
-	const room = joinRoomButton.innerHTML
-
-	// socket.emit('join app', {
-	// 	name,
-	// 	room,
-	// })
+	const room = roomName
 
 	if (userNameInput.value == '') {
 		alert('Enter username!')
 	} else {
-		document.querySelector('.startPageContainer').classList.add('hidden')
-		document
-			.querySelector('.createRoomContainer')
-			.classList.remove('hidden')
-	}
+		socket.emit('join app', {
+			name,
+			room,
+		})
 
-	socket.emit('join room', { name, room })
+		socket.emit('join room', { name, room })
+
+		document.querySelector('.startPageContainer').classList.add('hidden')
+		document.querySelector('.chatContainer').classList.remove('hidden')
+	}
 }
 
 function loadCreateRoomUI(event) {
