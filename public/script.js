@@ -29,20 +29,12 @@ function setupEventListeners() {
   // Output Room List
   /// Join Room Button
 
-  // let joinRoomButtons = document.querySelectorAll('.joinRoomButton')
-  // joinRoomButtons.forEach((joinRoomButton) => {
-  // 	joinRoomButton.addEventListener('click', () => {
-  // 		event.preventDefault()
-  // 		console.log('tjeema')
-  // 		joinActiveRoom()
-  // 	})
-  // })
 
   roomList.addEventListener("click", function (e) {
     e.preventDefault();
     // check whether class "submit-button" is present in the CSS classes of target
     if (e.target.classList.contains("joinRoomButton")) {
-      const room = e.target.previousElementSibling.innerHTML.trim();
+	  const room = e.target.previousElementSibling.innerHTML.trim();
 
       joinActiveRoom(room);
     }
@@ -75,9 +67,9 @@ function loadRoomList({ rooms }) {
       if (room.password) {
         console.log("Room Password:", room.password);
         return  `
-		  <div class="roomDiv" >
-		  <i class="fas fa-lock lockIcon"></i>
-		  <p>	${room.name}</p>
+		  <div class="roomDiv">
+		  			<i class="fas fa-lock lockIcon"></i>
+				  	<p>${room.name}</p>
 		  <button class="joinRoomButton" >Join</button>
 		  </div>
 		   `;
@@ -86,8 +78,8 @@ function loadRoomList({ rooms }) {
 
         return `
 			 <div class="roomDiv" >
-			 <i class="fas fa-lock-open lockIcon"></i>
-			 <p>	${room.name}</p>
+			 			<i class="fas fa-lock-open lockIcon"></i>
+						<p>${room.name}</p>
 			 <button class="joinRoomButton" >Join</button>
 			 </div>
 			  `;
@@ -229,7 +221,6 @@ function loadChatUI(data) {
   room.classList.add("roomObject");
   room.innerHTML = `
 	<h4 class="roomTitle">${data}</h4>
-	<i class="fas fa-lock lockIcon"></i>
 	`;
   rooms.appendChild(room);
 }
