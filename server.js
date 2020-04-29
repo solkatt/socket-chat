@@ -24,7 +24,7 @@ const {
 	getRoomPassword,
 	updateRooms,
 	checkAlreadyJoined,
-} = require('./utils/users')
+} = require('./utils/data')
 
 /// New Stuff /////
 

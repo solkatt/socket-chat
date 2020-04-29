@@ -12,13 +12,48 @@
     display: none !important;
 }
 
+
+/* SCROLLBAR */
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+
+
 body {
-    background: rgb(223, 114, 196);
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
+
+
+    background-image:    url(../images/bg.jpg);
+    background-size:     cover;                     
+    background-repeat:   no-repeat;
+    background-position: center center;     
+    overflow: hidden;
+
 }
 
 /* ------ STARTPAGE ------ */
@@ -30,6 +65,13 @@ body {
     align-items: center;
     width: 100vw;
     height: 100vh;
+}
+
+#startBox {
+    background: rgba(0, 0, 0, 0.809);
+    padding: 2rem;
+    border-radius: 1rem;
+ 
 }
 
 h1 {
@@ -45,15 +87,17 @@ h1 {
 }
 
 .roomsContainerStartPage {
-    background: rgb(171, 255, 255);
+    background: rgba(0, 0, 0, 0.809);
     color: black;
-    width: 20rem;
-    height: auto;
+    width: 21rem;
+    max-height: 10rem;
+    overflow-y: scroll;
     padding: 0.4rem;
     border-radius: 0.5rem;
 }
 
 .roomDiv {
+    color: white;
     display: grid;
     grid-template-columns: 10% 70% 20%;
     grid-template-rows: repeat(1, 1fr);
@@ -63,7 +107,9 @@ h1 {
     align-items: center;
     margin-top: 0.3rem;
     margin-bottom: 0.3rem;
-    background: rgb(125, 251, 255);
+    /* background: rgb(125, 251, 255); */
+    background: rgba(0, 0, 0, 0.809);
+
     padding: 0.2rem;
 }
 
@@ -84,6 +130,15 @@ h1 {
     cursor: pointer;
 }
 
+#createRoomBox {
+    background: rgba(0, 0, 0, 0.809);
+    padding: 2rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
 .createRoomTextButton {
     margin-top: 0.8rem;
     display: flex;
@@ -93,11 +148,23 @@ h1 {
 
 .goToCreateRoomPageButton {
     border: none;
+    color: white;
+    background: none;
+    border: 1px solid white;
+    border-radius: 1rem;
     padding: 0.5rem;
     text-align: center;
     text-decoration: none;
     font-size: 1.5rem;
-    cursor: pointer
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.5s ease-in-out;
+}
+
+.goToCreateRoomPageButton:hover, .createRoomButton:hover {
+    position: relative;
+    border: 1px solid rgb(155, 214, 66);
+    transition: all 0.5s ease-in-out;
 }
 
 .join {
@@ -105,6 +172,55 @@ h1 {
     justify-content: center;
     flex-direction: column;
 }
+
+/* ------ CREATE A NEW ROOM PAGE ------ */
+
+.createRoomContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.chooseRoomName {
+    margin-top: 2rem;
+    margin-bottom: 1.4rem;
+    font-size: 1.4rem;
+    padding: 0.3rem;
+    border-radius: 0.5rem;
+    border-style: none;
+}
+
+.inputPassword {
+    margin-top: 1rem;
+    font-size: 1.4rem;
+    padding: 0.3rem;
+    border-radius: 0.5rem;
+    border-style: none;
+}
+
+.createRoomButton {
+    margin-top: 1rem;
+    font-size: 1.4rem;
+    padding: 0.5rem;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+
+    color: white;
+    background: none;
+
+    border: 1px solid white;
+    border-radius: 1rem;
+  
+    margin-top: 1rem;
+    transition: all 0.5s ease-in-out;
+
+}
+
+
+
 
 /* ------ CHATPAGE ------ */
 
@@ -126,7 +242,9 @@ h1 {
     align-items: center;
     width: 75rem;
     height: 35rem;
-    background: rgb(125, 251, 255);
+    /* background: rgb(125, 251, 255); */
+    background: rgba(0, 0, 0, 0.809);
+
     border-radius: 1rem;
     box-shadow: 0rem 0rem 1rem black;
 }
@@ -190,7 +308,7 @@ h1 {
     display: flex;
     align-items: center;
     font-size: 2rem;
-    color: black;
+    color: white;
 }
 
 /* Leave room */
@@ -207,12 +325,12 @@ h1 {
     font-size: 2rem;
     text-align: center;
     text-decoration: none;
-    color: black;
-    border-left: 0.1rem solid black;
+    color: white;
+    border-left: 0.2rem solid grey;
 }
 
 .leaveRoomButton:hover {
-    color: white;
+    color: rgb(116, 116, 116);
     cursor: pointer;
 }
 
@@ -258,51 +376,138 @@ h1 {
 }
 
 .sendMessage {
+    color: white;
     grid-area: sendMessage;
     height: 100%;
     width: 100%;
     background: none;
     border-style: none;
     font-size: 1.2rem;
+    transform: scale(1);
+    transition: all 0.5s ease-in-out;
+
+
 }
 
 .sendMessage:hover {
-    color: white;
+    color: rgb(116, 116, 116);
+    position: relative;
+    transform: scale(1.1);
+    transition: all 0.5s ease-in-out;
     cursor: pointer;
 }
 
-/* ------ CREATE A NEW ROOM PAGE ------ */
 
-.createRoomContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+@media screen and (max-width: 800px) {
+   
+/* ------ CHATPAGE ------ */
 
-.chooseRoomName {
-    margin-top: 2rem;
-    margin-bottom: 1.4rem;
-    font-size: 1.4rem;
-    padding: 0.3rem;
-    border-radius: 0.5rem;
-    border-style: none;
-}
+    .chatContainer {
+        width: 320px;
+        height: 100vh;
+        border-radius: 0;
 
-.inputPassword {
-    margin-top: 1rem;
-    font-size: 1.4rem;
-    padding: 0.3rem;
-    border-radius: 0.5rem;
-    border-style: none;
-}
+        display: grid;  
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(8, 1fr);
+        grid-template-areas:
+            "username leaveRoom"
+            "chat chat"
+            "chat chat"
+            "chat chat"
+            "chat chat"
+            "chat chat"
+            "chat chat"
+            "messageBox messageBox";
+        
+        box-shadow: 0;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.809);
+    }
+    
+    .sendMessage {
+        transform: none;
+        transition: none;
+    }
 
-.createRoomButton {
-    margin-top: 1rem;
-    font-size: 1.4rem;
-    padding: 0.5rem;
-    text-align: center;
-    text-decoration: none;
-    border: none;
-    cursor: pointer
-}
+    .messageBox {
+        grid-area: messageBox;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+        grid-template-areas:
+            "typeMessage typeMessage typeMessage sendMessage";
+    
+        height: 100%;
+        width: auto;
+    }
+
+    .roomsContainerChatPage {
+        display: none;
+    }
+
+    .chat {
+        grid-area: chat;
+        box-sizing: border-box;
+        background: white;
+        color: black;
+        height: 100%;
+        width: 320px;
+        padding: 0.3rem;
+    }
+    
+    #chatWindow {
+        height: 100%;
+        overflow-y: hidden;
+    }
+
+    .username {
+        grid-area: username;
+        height: auto;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        font-size: 1rem;
+        color: white;
+        padding: 0.3rem;
+    }
+
+    .leaveRoomButton {
+        font-size: 1rem;
+        text-align: center;
+        text-decoration: none;
+        color: white;
+        border-left: 0.2rem solid grey;
+    }
+
+/* ------ CREATE A NEW ROOM PAGE ------ */ 
+
+    #createRoomBox {
+        width: 60%;
+    }
+
+/* ------ STARTPAGE ------ */
+    
+    .roomsContainerStartPage {
+    width: 95%;
+    }
+
+    .roomDiv {
+        width: 95%;
+        grid-template-columns: 20% 60% 20%;
+    }
+    
+    #startBox {
+        width: 60%;
+    }
+
+
+    .sendMessage:hover {
+        color: rgb(116, 116, 116);
+        transform: scale(1);
+        transition: all 0.5s ease-in-out;
+        cursor: pointer;
+    }
+
+  }
