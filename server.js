@@ -62,20 +62,26 @@ io.on('connection', (socket) => {
 	})
 
 	//////////////////////////////////////////////
+	socket.on('check password', (data) => {
+		const roomPW = getRoomPassword(data.room)
+		const name = data.name
+		const room = data.room
 
+		if (roomPW) {
+			console.log('SANT SKRIV LÖSEN')
+			console.log(data)
+			io.to(socket.id).emit('prompt password', { name, room, roomPW })
+		} else {
+			console.log('FALSKT KOM IN')
+			console.log(name)
+			console.log(room)
+			io.to(socket.id).emit('join w/o pw', { name, room })
+		}
+	})
 	// JOIN ROOM
 	socket.on('join room', (data) => {
 		const users = getAllUsers()
-		// if user.id already exist
-		// let user = getCurrentUser(socket.id)
 
-		// const allreadyJoinedBoolean = checkAlreadyJoined(socket.id)
-		// console.log(allreadyJoinedBoolean)
-		// const user = getCurrentUser()
-
-		// if (allreadyJoinedBoolean == false) {
-		// 	console.log('FAAAALSKT')
-		// } else {
 		let user = userJoin(socket.id, data.name, data.room)
 		// 	console.log('SANT')
 		console.log('Current User', user)

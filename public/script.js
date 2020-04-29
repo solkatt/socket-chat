@@ -52,6 +52,7 @@ function setupEventListeners() {
 	socket.on('load room list', loadRoomList)
 	socket.on('room created', loadJoin)
 	socket.on('prompt password', promptPassword)
+	socket.on('join w/o pw', loadChatandJoin)
 	///
 	socket.on('join successful', loadChatUI)
 	socket.on('message', onMessageReceived)
@@ -105,19 +106,37 @@ function joinActiveRoom(roomName) {
 		// 	room,
 		// })
 
-		socket.emit('join room', { name, room })
+		//CLASSLIST REMOVE HIDDEN PÅ MODAL
+		// PLOCKA IN LÖSEN OCH SKICKA MED
 
-		document.querySelector('.startPageContainer').classList.add('hidden')
-		document.querySelector('.chatContainer').classList.remove('hidden')
+		socket.emit('check password', { name, room })
+
+		// socket.emit('join room', { name, room })
 	}
 }
 
-function promptPassword(roomPW) {
-	const roomPassword = roomPW
-	prompt('Angelösen:')
-	// bygg prompt modal
-	// classList.hidden
-	console.log('frn promtPassword:', roomPassword)
+function promptPassword({ name, room, roomPW }) {
+	console.log('PROMPT PASSWORD MODAL HERE', roomPW)
+	const enteredPW = prompt('Ange lösen')
+
+	if (enteredPW == roomPW) {
+		alert('Rätt Lösen')
+		socket.emit('join room', { name, room })
+		document.querySelector('.startPageContainer').classList.add('hidden')
+		document.querySelector('.chatContainer').classList.remove('hidden')
+	} else {
+		alert('Fel lösen')
+	}
+
+	//add classlist hidden / remove
+}
+
+function loadChatandJoin({ name, room }) {
+	console.log('LOADCHATANDJOIN', name)
+	socket.emit('join room', { name, room })
+
+	document.querySelector('.startPageContainer').classList.add('hidden')
+	document.querySelector('.chatContainer').classList.remove('hidden')
 }
 
 function loadCreateRoomUI(event) {
