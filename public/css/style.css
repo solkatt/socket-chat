@@ -126,7 +126,7 @@ h1 {
     align-items: center;
     width: 75rem;
     height: 35rem;
-    background: grey;
+    background: rgb(125, 251, 255);
     border-radius: 1rem;
     box-shadow: 0rem 0rem 1rem black;
 }
@@ -190,6 +190,7 @@ h1 {
     display: flex;
     align-items: center;
     font-size: 2rem;
+    color: black;
 }
 
 /* Leave room */

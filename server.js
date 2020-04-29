@@ -99,7 +99,7 @@ io.on('connection', (socket) => {
 
 		socket.join(user.room, () => {
 			// Respond to client that join was successful
-			io.to(socket.id).emit('join successful', user.room)
+			io.to(socket.id).emit('join successful', user)
 
 			//Broadcast message to all clients in the room *Viktor has joined the room*
 			io.to(user.room).emit('message', {

@@ -50,7 +50,7 @@ function setupEventListeners() {
   socket.on("message", onMessageReceived);
   socket.on("roomUsers", ({ room, users }) => {
     outputRooms(room);
-    outputUsers(users);
+	outputUsers(users);
   });
 }
 
@@ -220,9 +220,19 @@ function loadChatUI(data) {
   const room = document.createElement("div");
   room.classList.add("roomObject");
   room.innerHTML = `
-	<h4 class="roomTitle">${data}</h4>
+	<h4 class="roomTitle">${data.room}</h4>
 	`;
   rooms.appendChild(room);
+
+//Add user to headtitle
+
+	const displayUsernameTitle = document.querySelector(".username")
+
+	const user = document.createElement("div");
+  
+	user.innerHTML = `<p>Username: <b>${data.username}</b></p>`
+    
+    displayUsernameTitle.append(user);
 }
 
 function onSendMessage(event) {
@@ -272,3 +282,4 @@ function outputUsers(users) {
 
   userList.append(user);
 }
+
