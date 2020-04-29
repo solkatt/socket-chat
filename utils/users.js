@@ -76,10 +76,20 @@ function updateRooms(room) {
 			count++
 		}
 	}
+
 	console.log(count)
 
 	console.log('updateRooms:', count)
 
+	if (count < 1) {
+		for (let i = 0; i < rooms.length; i++) {
+			if (rooms[i].name == room) {
+				rooms.splice(i, 1)
+				break
+			}
+		}
+		console.log(rooms)
+	}
 	// for (let i = 0; i < rooms.length; i++) {
 	// 	console.log(rooms[i])
 	// 	if (rooms[i].name === room) {
