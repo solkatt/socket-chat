@@ -9,8 +9,13 @@ function userJoin(id, username, room) {
 		username,
 		room,
 	}
-	users.push(user)
-	return user
+	if (checkAlreadyJoined(id)) {
+		return user
+	} else {
+		console.log(false)
+		users.push(user)
+		return user
+	}
 }
 
 function getAllUsers() {
@@ -18,11 +23,36 @@ function getAllUsers() {
 }
 
 function displayUsername(user) {
-	const username = document.querySelector(".username")
+	const username = document.querySelector('.username')
 }
 
+function checkAlreadyJoined(id) {
+	// const index = users.findIndex((user) => user.id === id);
+	// console.log(index)
+	//  users[index].room = room
 
-// Get current user
+	// test
+	{
+		return users.some(function (user) {
+			return user.id === id
+		})
+	}
+}
+
+//Update Rooms Array on Disconnect
+function updateRooms(room) {
+	let count = 0
+
+	for (var i = 0; i < users.length; i++) {
+		if (users[i].room === room) {
+			count++
+		}
+	}
+	console.log(count)
+
+	console.log('updateRooms:', count)
+}
+
 function updateUserRoom(id, room) {
 	// const index = users.findIndex((user) => user.id === id);
 	// console.log(index)
@@ -34,14 +64,38 @@ function updateUserRoom(id, room) {
 			users[i].room = room
 		}
 	}
-	// users.push(user)
 	console.log(users)
+}
+
+//Update Rooms Array on Disconnect
+function updateRooms(room) {
+	let count = 0
+
+	for (var i = 0; i < users.length; i++) {
+		if (users[i].room === room) {
+			count++
+		}
+	}
+	console.log(count)
+
+	console.log('updateRooms:', count)
+
+	// for (let i = 0; i < rooms.length; i++) {
+	// 	console.log(rooms[i])
+	// 	if (rooms[i].name === room) {
+	// 		count++
+	// 	}
+	// }
+
+	// for (let i in rooms) {
+	// 	if (rooms[i].name == room) {
+	// 		users[i].room = room
+	// 	}
+	// }
 }
 
 // Get current user
 function getCurrentUser(id) {
-	console.log(users)
-
 	return users.find((user) => user.id === id)
 }
 
@@ -52,8 +106,6 @@ function userLeave(id) {
 		return users.splice(index, 1)[0]
 	}
 }
-
-
 
 // Funkar
 function getRoomUsers(room) {
@@ -85,13 +137,12 @@ function getRooms() {
 }
 
 function getRoomPassword(room) {
-
-	for (let i=0; i < rooms.length; i++) {
-        if (rooms[i].name === room) {
-            return rooms[i].password;
-        }
+	for (let i = 0; i < rooms.length; i++) {
+		if (rooms[i].name === room) {
+			return rooms[i].password
+		}
 	}
-	
+
 	// const index = rooms.findIndex((room) => room.name === room)
 
 	// console.log('Hej', rooms[index].password)
@@ -112,5 +163,7 @@ module.exports = {
 	getRooms,
 	displayUsername,
 	getAllUsers,
-	getRoomPassword
+	getRoomPassword,
+	updateRooms,
+	checkAlreadyJoined,
 }

@@ -112,19 +112,13 @@ function joinActiveRoom(roomName) {
 	}
 }
 
-
 function promptPassword(roomPW) {
-
 	const roomPassword = roomPW
 	prompt('Angelösen:')
-	// bygg prompt modal 
+	// bygg prompt modal
 	// classList.hidden
 	console.log('frn promtPassword:', roomPassword)
 }
-
-
-
-
 
 function loadCreateRoomUI(event) {
 	event.preventDefault()

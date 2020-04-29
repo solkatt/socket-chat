@@ -21,7 +21,9 @@ const {
 	updateUserRoom,
 	getRooms,
 	getAllUsers,
-	getRoomPassword
+	getRoomPassword,
+	updateRooms,
+	checkAlreadyJoined,
 } = require('./utils/users')
 
 /// New Stuff /////
@@ -43,15 +45,12 @@ io.on('connection', (socket) => {
 	// CREATE ROOM
 	socket.on('create room', (data) => {
 		const user = getCurrentUser(socket.id)
-		console.log('TEST:', user)
-		
+
 		const allUsers = getAllUsers()
 
 		// const room = addRoom(data.name, data.password);
 		const room = addRoom(data.room, data.password)
 		updateUserRoom(socket.id, data.room)
-
-
 
 		//pusha room till user.room
 
@@ -67,28 +66,36 @@ io.on('connection', (socket) => {
 	// JOIN ROOM
 	socket.on('join room', (data) => {
 		const users = getAllUsers()
-		// const allUsers = getAllUsers()
-		// if user.id already exist 
-		const user = userJoin(socket.id, data.name, data.room)
+		// if user.id already exist
+		// let user = getCurrentUser(socket.id)
+
+		// const allreadyJoinedBoolean = checkAlreadyJoined(socket.id)
+		// console.log(allreadyJoinedBoolean)
+		// const user = getCurrentUser()
+
+		// if (allreadyJoinedBoolean == false) {
+		// 	console.log('FAAAALSKT')
+		// } else {
+		let user = userJoin(socket.id, data.name, data.room)
+		// 	console.log('SANT')
+		console.log('Current User', user)
+		console.log('All users', users)
+		// }
 
 		const roomPW = getRoomPassword(data.room)
 
-		if(roomPW.length >= 1) {
-			console.log('lösen finns')
-			io.to(socket.id).emit('prompt password', roomPW)
+		// socket allow request
+		// if(roomPW.length >= 1) {
+		// 	console.log('lösen finns')
+		// 	io.to(socket.id).emit('prompt password', roomPW)
 
-			getPromptPassword()
-			// const givenPW
-		
-		} else {
-			console.log('lösen finns inte')
-		}
-		console.log('RoomPW: ',roomPW)
+		// 	getPromptPassword()
+		// 	// const givenPW
 
-	
-		
-		
-		
+		// } else {
+		// 	console.log('lösen finns inte')
+		// }
+		// console.log('RoomPW: ',roomPW)
 
 		socket.join(user.room, () => {
 			// Respond to client that join was successful
@@ -119,12 +126,25 @@ io.on('connection', (socket) => {
 
 		// DISCONNECT
 		socket.on('disconnect', () => {
+			const userRoom = getCurrentUser(socket.id).room
+
+			console.log('userRoom on disconnect', userRoom)
+
 			const user = userLeave(socket.id)
+			const allUsers = getAllUsers()
+			console.log('All users:', allUsers)
+
+			//Skicka in userRoom till updateRooms()
+			const countInRoom = updateRooms(userRoom)
+			console.log(countInRoom)
+
 			if (user) {
 				io.to(user.room).emit('message', {
 					name: user.username,
 					message: 'has left the chat',
 				})
+
+				//Checkif Rooms Array isEmpty & Update List
 
 				//Send user and room info
 				io.to(user.room).emit('roomUsers', {
