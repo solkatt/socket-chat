@@ -52,12 +52,6 @@ io.on('connection', (socket) => {
 		const room = addRoom(data.room, data.password)
 		updateUserRoom(socket.id, data.room)
 
-		//pusha room till user.room
-
-		// socket.join(user.room, (data) => {
-		//   io.to(socket.id).emit('join successful', user.room)
-		// })
-
 		io.to(socket.id).emit('room created', user.username, user.room)
 	})
 

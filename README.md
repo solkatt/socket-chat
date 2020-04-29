@@ -14,16 +14,23 @@ Läs noga igenom hela uppgiftsbeskrivningen tillsammans innan ni börjar.
 
 Krav för godkänt:
 
-En fungerade chatt där användaren kan välja ett eget visningsnamn
-Det ska gå att skapa och joina ett rum med eller utan lösenord
-Tomma rum ska automatiskt försvinna
-Samtliga rum skall vara synligt i en lista där låsta & öppna rum är tydligt separerade
+X   En fungerade chatt där användaren kan välja ett eget visningsnamn
+
+X   Det ska gå att skapa och joina ett rum med eller utan lösenord
+
+X   Tomma rum ska automatiskt försvinna
+
+X   Samtliga rum skall vara synligt i en lista där låsta & öppna rum är tydligt separerade
+
 Git & GitHub har använts
 Projektmappen innehåller en README.md fil (läs ovan för mer info)
+
 Uppgiften lämnas in i tid!
+
 Krav för väl godkänt:
 
 Alla punkter för godkänt är uppfyllda
-Varje rum i listan skall även visa vilka klienter som finns i rummet
+
+X   Varje rum i listan skall även visa vilka klienter som finns i rummet
 När någon håller på att skriva ett meddelande skall det synas för alla andra i rummet
 Det ska gå att skriva kommandon ”/” för att utföra en operation som integrerar med tredjepart API’er - minst 2 kommandon

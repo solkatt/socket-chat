@@ -27,11 +27,6 @@ function displayUsername(user) {
 }
 
 function checkAlreadyJoined(id) {
-	// const index = users.findIndex((user) => user.id === id);
-	// console.log(index)
-	//  users[index].room = room
-
-	// test
 	{
 		return users.some(function (user) {
 			return user.id === id
@@ -54,11 +49,6 @@ function updateRooms(room) {
 }
 
 function updateUserRoom(id, room) {
-	// const index = users.findIndex((user) => user.id === id);
-	// console.log(index)
-	//  users[index].room = room
-
-	// test
 	for (let i in users) {
 		if (users[i].id == id) {
 			users[i].room = room
@@ -90,18 +80,6 @@ function updateRooms(room) {
 		}
 		console.log(rooms)
 	}
-	// for (let i = 0; i < rooms.length; i++) {
-	// 	console.log(rooms[i])
-	// 	if (rooms[i].name === room) {
-	// 		count++
-	// 	}
-	// }
-
-	// for (let i in rooms) {
-	// 	if (rooms[i].name == room) {
-	// 		users[i].room = room
-	// 	}
-	// }
 }
 
 // Get current user
@@ -124,12 +102,7 @@ function getRoomUsers(room) {
 
 // ROOM DATA //
 
-const rooms = [
-	{
-		name: 'TestRumNamn',
-		password: 'TestPassword',
-	},
-]
+const rooms = []
 
 // Join user to chat
 function addRoom(name, password) {
@@ -137,7 +110,6 @@ function addRoom(name, password) {
 		name,
 		password,
 	}
-	// room.clients.push(user)
 	rooms.push(room)
 	return room
 }
@@ -152,16 +124,7 @@ function getRoomPassword(room) {
 			return rooms[i].password
 		}
 	}
-
-	// const index = rooms.findIndex((room) => room.name === room)
-
-	// console.log('Hej', rooms[index].password)
 }
-
-// function getRoomUsers(room) {
-
-//   return rooms.filter((user) => user.room === room);
-// }
 
 module.exports = {
 	userJoin,
