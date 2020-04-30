@@ -26,9 +26,7 @@ const {
 	checkAlreadyJoined,
 } = require('./utils/data')
 
-/// New Stuff /////
 
-/// End of New Stuff ////
 
 io.on('connection', (socket) => {
 	console.log('Client connected: ', socket.id)
@@ -39,36 +37,28 @@ io.on('connection', (socket) => {
 	// USER JOIN CHATAPP
 	socket.on('join app', (data) => {
 		const user = userJoin(socket.id, data.name, data.room)
-		console.log(`Användarnamn: ${data.name}`)
+		console.log(`Username: ${data.name}`)
 	})
 
 	// CREATE ROOM
 	socket.on('create room', (data) => {
 		const user = getCurrentUser(socket.id)
-
 		const allUsers = getAllUsers()
-
-		// const room = addRoom(data.name, data.password);
 		const room = addRoom(data.room, data.password)
+		
 		updateUserRoom(socket.id, data.room)
 
 		io.to(socket.id).emit('room created', user.username, user.room)
 	})
 
-	//////////////////////////////////////////////
 	socket.on('check password', (data) => {
 		const roomPW = getRoomPassword(data.room)
 		const name = data.name
 		const room = data.room
 
 		if (roomPW) {
-			console.log('SANT SKRIV LÖSEN')
-			console.log(data)
 			io.to(socket.id).emit('prompt password', { name, room, roomPW })
 		} else {
-			console.log('FALSKT KOM IN')
-			console.log(name)
-			console.log(room)
 			io.to(socket.id).emit('join w/o pw', { name, room })
 		}
 	})
@@ -77,25 +67,10 @@ io.on('connection', (socket) => {
 		const users = getAllUsers()
 
 		let user = userJoin(socket.id, data.name, data.room)
-		// 	console.log('SANT')
-		console.log('Current User', user)
-		console.log('All users', users)
-		// }
+		console.log('Current User: ', user)
+		console.log('All users: ', users)
 
 		const roomPW = getRoomPassword(data.room)
-
-		// socket allow request
-		// if(roomPW.length >= 1) {
-		// 	console.log('lösen finns')
-		// 	io.to(socket.id).emit('prompt password', roomPW)
-
-		// 	getPromptPassword()
-		// 	// const givenPW
-
-		// } else {
-		// 	console.log('lösen finns inte')
-		// }
-		// console.log('RoomPW: ',roomPW)
 
 		socket.join(user.room, () => {
 			// Respond to client that join was successful
@@ -127,16 +102,11 @@ io.on('connection', (socket) => {
 		// DISCONNECT
 		socket.on('disconnect', () => {
 			const userRoom = getCurrentUser(socket.id).room
-
-			console.log('userRoom on disconnect', userRoom)
-
 			const user = userLeave(socket.id)
 			const allUsers = getAllUsers()
-			console.log('All users:', allUsers)
 
 			//Skicka in userRoom till updateRooms()
 			const countInRoom = updateRooms(userRoom)
-			console.log(countInRoom)
 
 			if (user) {
 				io.to(user.room).emit('message', {

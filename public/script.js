@@ -1,7 +1,4 @@
-// Kanske kan flyttas någonstans bättre
-// const roomName = document.querySelector('#rooms')
 const userList = document.querySelector('#userList')
-
 const roomList = document.querySelector('.roomsContainerStartPage')
 
 const socket = io()
@@ -12,13 +9,13 @@ window.addEventListener('load', () => {
 })
 
 function setupEventListeners() {
-	//GO to create Rooom
+	// Go to create Rooom
 	const goToCreateRoomPageButton = document.querySelector(
 		'.goToCreateRoomPageButton'
 	)
 	goToCreateRoomPageButton.addEventListener('click', loadCreateRoomUI)
 
-	//Create Room Handler
+	// Create Room Handler
 	const createRoomBtn = document.querySelector('.createRoomButton')
 	createRoomBtn.addEventListener('click', onCreateRoom)
 
@@ -26,15 +23,13 @@ function setupEventListeners() {
 	const messageForm = document.querySelector('.messageBox')
 	messageForm.addEventListener('submit', onSendMessage)
 
-	// Output Room List
-	/// Join Room Button
 
+	// Join Room Button
 	roomList.addEventListener('click', function (e) {
 		e.preventDefault()
 		// check whether class "submit-button" is present in the CSS classes of target
 		if (e.target.classList.contains('joinRoomButton')) {
 			const room = e.target.previousElementSibling.innerHTML.trim()
-
 			joinActiveRoom(room)
 		}
 	})
@@ -44,27 +39,28 @@ function setupEventListeners() {
 	socket.on('room created', loadJoin)
 	socket.on('prompt password', promptPassword)
 	socket.on('join w/o pw', loadChatandJoin)
-	///
 	socket.on('join successful', loadChatUI)
 	socket.on('message', onMessageReceived)
-	socket.on('roomUsers', ({ room, users }) => {
+	socket.on('roomUsers', ({
+		room,
+		users
+	}) => {
 		outputRooms(room)
 		outputUsers(users)
 	})
 }
 
-function loadRoomList({ rooms }) {
+function loadRoomList({
+	rooms
+}) {
 	console.log('LOAD ROOMS')
 	console.log(rooms)
 
 	let template = document.createElement('template')
-	// const roomDiv = document.createElement('')
-	//  roomDiv.classList.add('roomDiv')
 
 	let render = rooms
 		.map((room) => {
 			if (room.password) {
-				console.log('Room Password:', room.password)
 				return `
 		  <div class="roomDiv">
 		  			<i class="fas fa-lock lockIcon"></i>
@@ -73,7 +69,6 @@ function loadRoomList({ rooms }) {
 		  </div>
 		   `
 			} else {
-				console.log('Room Password NOT:', room.name)
 
 				return `
 			 <div class="roomDiv" >
@@ -95,8 +90,6 @@ function reloadRoomList() {
 }
 
 function joinActiveRoom(roomName) {
-	console.log(roomName)
-
 	const userNameInput = document.querySelector('.chooseUsername')
 
 	// Save User to Users Array
@@ -106,39 +99,42 @@ function joinActiveRoom(roomName) {
 	if (userNameInput.value == '') {
 		alert('Enter username!')
 	} else {
-		// socket.emit('join app', {
-		// 	name,
-		// 	room,
-		// })
-
-		//CLASSLIST REMOVE HIDDEN PÅ MODAL
-		// PLOCKA IN LÖSEN OCH SKICKA MED
-
-		socket.emit('check password', { name, room })
-
-		// socket.emit('join room', { name, room })
+		socket.emit('check password', {
+			name,
+			room
+		})
 	}
 }
 
-function promptPassword({ name, room, roomPW }) {
+function promptPassword({
+	name,
+	room,
+	roomPW
+}) {
 	console.log('PROMPT PASSWORD MODAL HERE', roomPW)
-	const enteredPW = prompt('Ange lösen')
+	const enteredPW = prompt('Enter password')
 
 	if (enteredPW == roomPW) {
-		alert('Rätt Lösen')
-		socket.emit('join room', { name, room })
+		socket.emit('join room', {
+			name,
+			room
+		})
 		document.querySelector('.startPageContainer').classList.add('hidden')
 		document.querySelector('.chatContainer').classList.remove('hidden')
 	} else {
-		alert('Fel lösen')
+		alert('Wrong password!')
 	}
-
-	//add classlist hidden / remove
 }
 
-function loadChatandJoin({ name, room }) {
+function loadChatandJoin({
+	name,
+	room
+}) {
 	console.log('LOADCHATANDJOIN', name)
-	socket.emit('join room', { name, room })
+	socket.emit('join room', {
+		name,
+		room
+	})
 
 	document.querySelector('.startPageContainer').classList.add('hidden')
 	document.querySelector('.chatContainer').classList.remove('hidden')
@@ -205,18 +201,15 @@ function loadJoin(name, room) {
 
 function onJoinRoom(name, room) {
 	event.preventDefault()
-	// const [nameInput, roomInput] = document.querySelectorAll(".join.ui input");
 
-	// const name = nameInput.value;
-	// const room = roomInput.value
-	socket.emit('join room', { name, room })
-	// socket.emit("join room", name);
+	socket.emit('join room', {
+		name,
+		room
+	})
+
 }
 
 function loadChatUI(data) {
-	console.log(`Från script > loadChatUI: ${data}`)
-	// socket.emit("join room", name);
-
 	const rooms = document.querySelector('#rooms')
 	const room = document.createElement('div')
 	room.classList.add('roomObject')
@@ -225,13 +218,11 @@ function loadChatUI(data) {
 	`
 	rooms.appendChild(room)
 
-	//Add user to headtitle
-
 	const displayUsernameTitle = document.querySelector('.username')
 
 	const user = document.createElement('div')
 
-	user.innerHTML = `<p>Username: <b>${data.username}</b></p>`
+	user.innerHTML = `<h6 style="font-weight: 100">username</h6><h3>${data.username}</h3>`
 
 	displayUsernameTitle.append(user)
 }
@@ -247,7 +238,10 @@ function onSendMessage(event) {
 	input.value = ''
 }
 
-function onMessageReceived({ name, message }) {
+function onMessageReceived({
+	name,
+	message
+}) {
 	const ul = document.querySelector('ul')
 	const li = document.createElement('li')
 	li.classList.add('message')
