@@ -18,25 +18,25 @@
 /* width */
 ::-webkit-scrollbar {
     width: 5px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
+}
+
+/* Track */
+::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 10px;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 10px;
 
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
     background: #555;
-  }
+}
 
 
 
@@ -48,10 +48,10 @@ body {
     height: 100vh;
 
 
-    background-image:    url(../images/bg.jpg);
-    background-size:     cover;                     
-    background-repeat:   no-repeat;
-    background-position: center center;     
+    background-image: url(../images/bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
     overflow: hidden;
 
 }
@@ -71,7 +71,6 @@ body {
     background: rgba(0, 0, 0, 0.809);
     padding: 2rem;
     border-radius: 1rem;
- 
 }
 
 h1 {
@@ -91,7 +90,7 @@ h1 {
     color: black;
     width: 21rem;
     max-height: 10rem;
-    overflow-y: scroll;
+    overflow-y: auto;
     padding: 0.4rem;
     border-radius: 0.5rem;
 }
@@ -128,7 +127,15 @@ h1 {
     grid-area: joinRoomButton;
     padding: 0.2rem;
     cursor: pointer;
+    color: white;
+    background: none;
+    border: 1px solid white;
+    border-radius: 1rem;
+    transition: all 0.5s ease-in-out;
+
+
 }
+
 
 #createRoomBox {
     background: rgba(0, 0, 0, 0.809);
@@ -151,7 +158,7 @@ h1 {
     color: white;
     background: none;
     border: 1px solid white;
-    border-radius: 1rem;
+    border-radius: 2rem;
     padding: 0.5rem;
     text-align: center;
     text-decoration: none;
@@ -161,7 +168,9 @@ h1 {
     transition: all 0.5s ease-in-out;
 }
 
-.goToCreateRoomPageButton:hover, .createRoomButton:hover {
+.goToCreateRoomPageButton:hover,
+.createRoomButton:hover,
+.roomDiv button:hover {
     position: relative;
     border: 1px solid rgb(155, 214, 66);
     transition: all 0.5s ease-in-out;
@@ -212,8 +221,8 @@ h1 {
     background: none;
 
     border: 1px solid white;
-    border-radius: 1rem;
-  
+    border-radius: 2rem;
+
     margin-top: 1rem;
     transition: all 0.5s ease-in-out;
 
@@ -399,15 +408,15 @@ h1 {
 
 
 @media screen and (max-width: 800px) {
-   
-/* ------ CHATPAGE ------ */
+
+    /* ------ CHATPAGE ------ */
 
     .chatContainer {
         width: 320px;
         height: 100vh;
         border-radius: 0;
 
-        display: grid;  
+        display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(8, 1fr);
         grid-template-areas:
@@ -419,13 +428,13 @@ h1 {
             "chat chat"
             "chat chat"
             "messageBox messageBox";
-        
+
         box-shadow: 0;
         justify-content: center;
         align-items: center;
         background: rgba(0, 0, 0, 0.809);
     }
-    
+
     .sendMessage {
         transform: none;
         transition: none;
@@ -438,7 +447,7 @@ h1 {
         grid-template-rows: repeat(1, 1fr);
         grid-template-areas:
             "typeMessage typeMessage typeMessage sendMessage";
-    
+
         height: 100%;
         width: auto;
     }
@@ -456,7 +465,7 @@ h1 {
         width: 320px;
         padding: 0.3rem;
     }
-    
+
     #chatWindow {
         height: 100%;
         overflow-y: hidden;
@@ -481,23 +490,23 @@ h1 {
         border-left: 0.2rem solid grey;
     }
 
-/* ------ CREATE A NEW ROOM PAGE ------ */ 
+    /* ------ CREATE A NEW ROOM PAGE ------ */
 
     #createRoomBox {
         width: 60%;
     }
 
-/* ------ STARTPAGE ------ */
-    
+    /* ------ STARTPAGE ------ */
+
     .roomsContainerStartPage {
-    width: 95%;
+        width: 95%;
     }
 
     .roomDiv {
         width: 95%;
         grid-template-columns: 20% 60% 20%;
     }
-    
+
     #startBox {
         width: 60%;
     }
@@ -510,4 +519,4 @@ h1 {
         cursor: pointer;
     }
 
-  }
+}
