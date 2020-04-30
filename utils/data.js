@@ -34,19 +34,6 @@ function checkAlreadyJoined(id) {
 	}
 }
 
-//Update Rooms Array on Disconnect
-function updateRooms(room) {
-	let count = 0
-
-	for (var i = 0; i < users.length; i++) {
-		if (users[i].room === room) {
-			count++
-		}
-	}
-	console.log(count)
-
-	console.log('updateRooms:', count)
-}
 
 function updateUserRoom(id, room) {
 	for (let i in users) {
